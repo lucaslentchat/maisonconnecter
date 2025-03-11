@@ -1,0 +1,25 @@
+#include <Arduino.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup()
+{
+  lcd.init();
+  lcd.backlight();
+  Serial.begin(9600);
+  lcd.print("Attendez qu'on ");
+  lcd.setCursor(0, 1);
+  lcd.print("vous ouvre ");
+  lcd.setCursor(0, 0);
+   delay(5000);
+  lcd.clear();
+  
+}
+
+void loop()
+{
+  
+  
+}
