@@ -1,0 +1,33 @@
+#include <Arduino.h>
+#include <ESP32Servo.h>
+
+Servo myservo;
+#define SERVO_PIN 13
+#define BUTTON_PIN 16
+
+bool lastButtonState = HIGH;  // Bouton en INPUT_PULLUP (repos = HIGH)
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  myservo.attach(SERVO_PIN);
+  myservo.write(90);  // Position fermée
+}
+
+void loop()
+{
+  bool buttonState = digitalRead(BUTTON_PIN);
+
+  // Détection d'un appui (passage de HIGH -> LOW)
+  if (buttonState == LOW && lastButtonState == HIGH)  
+  {  
+    Serial.println("Bouton pressé, ouverture de la serrure");
+    myservo.write(0);  // Ouvre la serrure
+    delay(5000);  // Attendre 5 secondes (au lieu de 10 pour test)
+    myservo.write(90);  // Ferme la serrure
+    Serial.println("Serrure refermée");
+  }
+
+  lastButtonState = buttonState;  // Mise à jour état du bouton
+}
