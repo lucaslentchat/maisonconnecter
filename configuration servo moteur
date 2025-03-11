@@ -1,0 +1,14 @@
+#include <ESP32Servo.h>
+
+Servo myservo;
+#define servoPin 13
+
+void setup() {
+  myservo.attach(servoPin);
+  myservo.write(110);
+}
+
+void loop() 
+{
+  
+}
