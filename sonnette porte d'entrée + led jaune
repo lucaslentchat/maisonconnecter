@@ -1,0 +1,44 @@
+#include <Arduino.h>
+
+#define BUTTON_PIN 27
+#define BUZZER_PIN 25
+#define LED_PIN 12
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(BUTTON_PIN, INPUT_PULLUP);
+    pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);
+}
+
+void loop()
+{
+    if (digitalRead(BUTTON_PIN) == LOW)
+    {
+        Serial.println("🔔 Ding Dong !");
+        tone(BUZZER_PIN, 330, 400); // NOTE_E4 (mi) - Fréquence 330 Hz, durée 400 ms
+        digitalWrite(LED_PIN, HIGH);
+        delay(300);
+        digitalWrite(LED_PIN, LOW);
+        delay(500);
+        tone(BUZZER_PIN, 392, 400); // NOTE_G4 (sol)
+        digitalWrite(LED_PIN, HIGH);
+        delay(300);
+        digitalWrite(LED_PIN, LOW);
+        delay(500);
+        tone(BUZZER_PIN, 523, 400); // NOTE_C5 (do supérieur)
+        digitalWrite(LED_PIN, HIGH);
+        delay(300);
+        digitalWrite(LED_PIN, LOW);
+        delay(500);
+        noTone(BUZZER_PIN); // Arrête le son
+        delay(300);
+
+        while (digitalRead(BUTTON_PIN) == LOW)
+        {
+            delay(10);
+        }
+        Serial.println("✅ Bouton relâché, prêt pour une nouvelle sonnerie.");
+    }
+}
