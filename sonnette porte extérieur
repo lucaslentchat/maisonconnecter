@@ -1,0 +1,23 @@
+#include <Arduino.h>
+
+#define BUTTON_PIN 27 
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(BUTTON_PIN, INPUT_PULLUP);  
+}
+
+void loop() {
+    
+    if (digitalRead(BUTTON_PIN) == LOW) { 
+        Serial.println("🔔 Ding Dong ! Quelqu'un sonne !");
+        delay(300);  
+
+       
+        while (digitalRead(BUTTON_PIN) == LOW) {
+            delay(10);  
+        }
+
+        Serial.println("✅ Bouton relâché, prêt pour une nouvelle sonnerie.");
+    }
+}
